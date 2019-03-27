@@ -1,3 +1,7 @@
+# create dir
+mkdir -p output/high
+mkdir -p output/low
+
 # generate report for high house numbers 
 docker run --rm \
     -v `pwd`:/db-pad-validation\
