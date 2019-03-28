@@ -55,10 +55,6 @@ def parse_success(record):
 
 def parse_failure(record):
     record['output'].pop('alternative_names')
-    record['output']['new_street_name'] = ''
-    record['output']['new_house_number'] = ''
-    record['output']['new_zip_code'] = ''
-    record['output']['correction_status'] = ''
     return record['output']
 
 def dump_success(lst):

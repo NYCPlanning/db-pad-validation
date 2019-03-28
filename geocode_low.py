@@ -17,9 +17,6 @@ if __name__ == '__main__':
                             'boro']) #borough or borough code, we can also use zipcode
 
     df=df.dropna(axis=0, how='all') #remove null
-    nrows = df.shape[0]
-
-    print(f'Total number of records: {nrows}')
 
     #rename them to the format that could be recognized by geosupport
     df = df.rename(columns={'physical_id':'uid', 
@@ -27,7 +24,11 @@ if __name__ == '__main__':
                             'lhnd':'house_number', 
                             'boro':'borough_code'})
 
+    df.house_number = df.house_number.apply(lambda x: x.strip())
+    df = df[df.house_number != '']
     #convert dataframe to list of dictionaries
+    nrows = df.shape[0]
+    print(f'Total number of records: {nrows}')
     records = df.to_dict('records')
     
     # Multiprocess
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     
     ## Dump Success records
     success = dump_success(it)
-    pd.DataFrame(success).to_csv('output/low/success.csv', index=False)
+    # pd.DataFrame(success).to_csv('output/low/success.csv', index=False)
     
     ## Dump Failure records
     failure = dump_failure(it)
